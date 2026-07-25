@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: smart_delivery_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: smart_delivery_db
+      POSTGRES_USER: delivery_user
+      POSTGRES_PASSWORD: delivery_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - smart_delivery_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U delivery_user -d smart_delivery_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  smart_delivery_data:
