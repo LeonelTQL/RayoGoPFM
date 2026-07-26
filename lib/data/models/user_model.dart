@@ -23,6 +23,7 @@ class UserModel extends AppUser {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,

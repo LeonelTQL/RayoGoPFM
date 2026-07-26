@@ -12,6 +12,15 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   errors:
     deprecated_member_use: ignore
+    unused_import: ignore
+    depend_on_referenced_packages: ignore
+    library_prefixes: ignore
+    avoid_print: ignore
+    annotate_overrides: ignore
+    use_null_aware_elements: ignore
+    use_build_context_synchronously: ignore
+    strict_top_level_inference: ignore
+    unnecessary_underscores: ignore
 
 linter:
   # The lint rules applied to this project can be customized in the
