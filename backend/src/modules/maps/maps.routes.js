@@ -168,10 +168,10 @@ function encodePolyline(points) {
     let shifted = value < 0 ? ~(value << 1) : value << 1;
     let output = '';
     while (shifted >= 0x20) {
-      output += String.fromCharCode((0x20 | (shifted & 0x1f)) + 63);
+      output += String.fromCodePoint((0x20 | (shifted & 0x1f)) + 63);
       shifted >>= 5;
     }
-    output += String.fromCharCode(shifted + 63);
+    output += String.fromCodePoint(shifted + 63);
     return output;
   }
 

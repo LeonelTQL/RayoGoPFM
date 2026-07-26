@@ -53,7 +53,7 @@ class NotificationService {
     required String body,
     String? payload,
   }) async {
-    final AndroidNotificationDetails androidPlatformChannelSpecifics =
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
       'rayogo_channel',
       'RayoGo Notifications',
@@ -61,12 +61,12 @@ class NotificationService {
       importance: Importance.max,
       priority: Priority.high,
       showWhen: true,
-      color: const Color(0xFFFF5722), // Deep Orange RayoGo
+      color: Color(0xFFFF5722), // Deep Orange RayoGo
     );
 
-    final NotificationDetails platformChannelSpecifics = NotificationDetails(
+    const NotificationDetails platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
-      iOS: const DarwinNotificationDetails(),
+      iOS: DarwinNotificationDetails(),
     );
 
     await _notificationsPlugin.show(

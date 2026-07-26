@@ -113,7 +113,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                 ),
               ),
               const SizedBox(height: 30),
-              Hero(
+              const Hero(
                 tag: 'app_name',
                 child: Material(
                   color: Colors.transparent,
@@ -128,7 +128,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                   ),
                 ),
               ),
-              Hero(
+              const Hero(
                 tag: 'app_subtitle',
                 child: Material(
                   color: Colors.transparent,

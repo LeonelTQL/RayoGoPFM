@@ -98,14 +98,14 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Hero(
+                  const Hero(
                     tag: 'app_name',
                     child: Material(
                       color: Colors.transparent,
                       child: Text(
                         'RayoGo',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w900,
                           color: EsquemaColor.textPrimary,
@@ -114,14 +114,14 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                   ),
-                  Hero(
+                  const Hero(
                     tag: 'app_subtitle',
                     child: Material(
                       color: Colors.transparent,
                       child: Text(
                         'Tu pedido, al instante',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           color: EsquemaColor.primary,
                           fontStyle: FontStyle.italic,
