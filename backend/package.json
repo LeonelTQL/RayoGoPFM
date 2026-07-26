@@ -7,7 +7,12 @@
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "db:migrate": "node scripts/migrate.js",
-    "db:seed": "node scripts/seed.js"
+    "db:seed": "node scripts/seed.js",
+    "test": "jest --runInBand --detectOpenHandles",
+    "test:coverage": "jest --runInBand --coverage",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "security:audit": "npm audit --omit=dev --audit-level=high"
   },
   "keywords": [
     "delivery",
@@ -33,6 +38,45 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.8.0",
+    "globals": "^17.8.0",
+    "jest": "^30.4.2",
+    "nodemon": "^3.1.9",
+    "pg-mem": "^3.0.14",
+    "supertest": "^7.2.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "<rootDir>/test/**/*.test.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/",
+      "src/server.js",
+      "src/config/socket.js",
+      "src/config/upload.js",
+      "scripts/",
+      "database/"
+    ],
+    "collectCoverageFrom": [
+      "src/middlewares/*.js",
+      "src/utils/*.js",
+      "src/routes/*.js",
+      "src/modules/auth/**/*.js",
+      "src/modules/categories/**/*.js",
+      "src/modules/products/**/*.js",
+      "src/modules/addresses/**/*.js",
+      "src/app.js"
+    ]
   }
 }
