@@ -17,7 +17,7 @@ app.use(morgan('dev'));
 app.use('/uploads', express.static(path.join(__dirname, '..', process.env.UPLOAD_DIR || 'uploads')));
 
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'smart-delivery-api' });
+  res.json({ status: 'ok', service: 'smart-delivery-apis' });
 });
 
 app.use('/api', routes);
