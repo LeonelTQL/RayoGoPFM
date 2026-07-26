@@ -233,9 +233,9 @@ async function computeRouteWithDirectionsApi(origin, destination, travelMode) {
   const json = await response.json();
 
   if (json.status !== 'OK') {
-    const message = json.error_message || json.status || 'Directions API no pudo calcular la ruta.';
-    const error = new Error(message);
+    const error = new Error('Directions API no pudo calcular la ruta.');
     error.googleStatus = json.status;
+    error.apiMessage = json.error_message || json.status;
     error.googlePayload = json;
     throw error;
   }
@@ -275,9 +275,9 @@ async function computeRouteWithRoutesApi(origin, destination, travelMode) {
 
   const json = await response.json();
   if (!response.ok) {
-    const message = json.error?.message || 'Routes API no pudo calcular la ruta.';
-    const error = new Error(message);
+    const error = new Error('Routes API no pudo calcular la ruta.');
     error.status = response.status;
+    error.apiMessage = json.error?.message;
     error.googlePayload = json;
     throw error;
   }
@@ -317,7 +317,7 @@ router.post('/route', requireAuth, async (req, res) => {
   } catch (error) {
     console.warn('[maps/route] Directions API falló, usando ruta directa:', error.message);
     return res.json({
-      route: directFallbackRoute(origin, destination, error.googleStatus || error.message),
+      route: directFallbackRoute(origin, destination, error.googleStatus || error.apiMessage || error.message),
     });
   }
 });
