@@ -29,7 +29,10 @@ class _SearchViewState extends State<SearchView> {
     final arg = ModalRoute.of(context)?.settings.arguments;
     _search.text = arg?.toString() ?? '';
     _initialized = true;
-    Future.microtask(() => context.read<ProductViewModel>().loadProducts(search: _search.text));
+    Future.microtask(() {
+      if (!mounted) return;
+      context.read<ProductViewModel>().loadProducts(search: _search.text);
+    });
   }
 
   @override

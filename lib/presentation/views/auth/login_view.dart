@@ -34,7 +34,7 @@ class _LoginViewState extends State<LoginView> {
         avatarUrl: account.photoUrl,
       );
 
-      if (!mounted || !ok) return;
+      if (!context.mounted || !ok) return;
       context.read<SocketService>().init();
       _navigateBasedOnRole(auth.user!);
     } catch (e) {
@@ -159,7 +159,7 @@ class _LoginViewState extends State<LoginView> {
                     onPressed: () async {
                       if (!_formKey.currentState!.validate()) return;
                       final ok = await auth.login(_email.text, _password.text);
-                      if (!mounted || !ok) return;
+                      if (!context.mounted || !ok) return;
                       context.read<SocketService>().init();
                       _navigateBasedOnRole(auth.user!);
                     },

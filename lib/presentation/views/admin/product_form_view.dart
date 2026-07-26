@@ -53,7 +53,7 @@ class _ProductFormViewState extends State<ProductFormView> {
                               stock: int.parse(_stock.text),
                               imageUrl: _imageUrl.text.trim().isEmpty ? null : _imageUrl.text.trim(),
                             );
-                        if (!mounted || !ok) return;
+                        if (!context.mounted || !ok) return;
                         Navigator.pop(context);
                       },
                 child: vm.loading ? const CircularProgressIndicator() : const Text('Guardar producto'),

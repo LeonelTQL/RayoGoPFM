@@ -18,7 +18,10 @@ class _PromotionsViewState extends State<PromotionsView> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<ProductViewModel>().loadProducts());
+    Future.microtask(() {
+      if (!mounted) return;
+      context.read<ProductViewModel>().loadProducts();
+    });
   }
 
   void _addProduct(BuildContext context, Product product) {

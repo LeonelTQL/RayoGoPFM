@@ -17,7 +17,10 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<OrderViewModel>().loadMyOrders());
+    Future.microtask(() {
+      if (!mounted) return;
+      context.read<OrderViewModel>().loadMyOrders();
+    });
   }
 
   @override

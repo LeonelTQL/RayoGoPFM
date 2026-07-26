@@ -118,26 +118,23 @@ class _DeliveryOrdersViewState extends State<DeliveryOrdersView> {
                                       ),
                                       onPressed: () async {
                                         final ok = await context.read<OrderViewModel>().acceptOrder(order.id);
+                                        if (!context.mounted) return;
                                         if (ok) {
-                                          if (mounted) {
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              const SnackBar(
-                                                content: Text('Pedido aceptado correctamente.'),
-                                                backgroundColor: EsquemaColor.success,
-                                              ),
-                                            );
-                                            setState(() => showAvailable = false);
-                                            _refresh();
-                                          }
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(
+                                              content: Text('Pedido aceptado correctamente.'),
+                                              backgroundColor: EsquemaColor.success,
+                                            ),
+                                          );
+                                          setState(() => showAvailable = false);
+                                          _refresh();
                                         } else {
-                                          if (mounted) {
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                content: Text(context.read<OrderViewModel>().error ?? 'Error al aceptar.'),
-                                                backgroundColor: EsquemaColor.danger,
-                                              ),
-                                            );
-                                          }
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: Text(context.read<OrderViewModel>().error ?? 'Error al aceptar.'),
+                                              backgroundColor: EsquemaColor.danger,
+                                            ),
+                                          );
                                         }
                                       },
                                       child: const Text('ACEPTAR PEDIDO'),

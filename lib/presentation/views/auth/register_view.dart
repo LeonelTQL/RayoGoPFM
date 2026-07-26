@@ -100,7 +100,7 @@ class _RegisterViewState extends State<RegisterView> {
                     password: _password.text,
                     phone: _phone.text,
                   );
-                  if (!mounted || !ok) return;
+                  if (!context.mounted || !ok) return;
                   context.read<SocketService>().init();
                   Navigator.pushReplacementNamed(context, AppRoutes.home);
                 },

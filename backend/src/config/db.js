@@ -31,7 +31,9 @@ async function initializeTestDb() {
   const path = require('path');
   
   const migrationsDir = path.join(__dirname, '..', '..', 'database', 'migrations');
-  const files = fs.readdirSync(migrationsDir).filter((file) => file.endsWith('.sql')).sort();
+  const files = fs.readdirSync(migrationsDir)
+    .filter((file) => file.endsWith('.sql'))
+    .sort((a, b) => a.localeCompare(b));
   
   for (const file of files) {
     let sql = fs.readFileSync(path.join(migrationsDir, file), 'utf8');

@@ -56,8 +56,9 @@ class _DeliveryProofViewState extends State<DeliveryProofView> {
                   ? null
                   : () async {
                       final ok = await context.read<DeliveryViewModel>().uploadProof(orderId: orderId!, image: _image!, note: _note.text);
-                      if (!mounted || !ok) return;
+                      if (!context.mounted || !ok) return;
                       await context.read<OrderViewModel>().loadDeliveryOrders();
+                      if (!context.mounted) return;
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Entrega registrada')));
                     },

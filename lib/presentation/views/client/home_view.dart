@@ -24,7 +24,9 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     Future.microtask(() async {
+      if (!mounted) return;
       await context.read<ProductViewModel>().loadProducts();
+      if (!mounted) return;
       await context.read<AddressViewModel>().loadAddresses();
     });
   }

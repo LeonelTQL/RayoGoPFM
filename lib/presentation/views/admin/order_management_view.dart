@@ -15,7 +15,9 @@ class _OrderManagementViewState extends State<OrderManagementView> {
   void initState() {
     super.initState();
     Future.microtask(() async {
+      if (!mounted) return;
       await context.read<OrderViewModel>().loadAdminOrders();
+      if (!mounted) return;
       await context.read<OrderViewModel>().loadRiders();
     });
   }

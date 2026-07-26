@@ -36,6 +36,7 @@ class _DeliveryMapViewState extends State<DeliveryMapView> {
     if (orderId == null) return;
     final orderVm = context.read<OrderViewModel>();
     await orderVm.loadOrder(orderId!);
+    if (!mounted) return;
     final order = orderVm.selectedOrder;
     if (order?.latitude != null && order?.longitude != null) {
       await context.read<MapsViewModel>().loadRoute(

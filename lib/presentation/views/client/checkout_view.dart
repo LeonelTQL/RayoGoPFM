@@ -21,7 +21,10 @@ class _CheckoutViewState extends State<CheckoutView> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<AddressViewModel>().loadAddresses());
+    Future.microtask(() {
+      if (!mounted) return;
+      context.read<AddressViewModel>().loadAddresses();
+    });
   }
 
   @override
@@ -139,7 +142,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                               note: _note.text.trim().isEmpty ? null : _note.text.trim(),
                               items: cart.items,
                             );
-                        if (!mounted || !ok) return;
+                        if (!context.mounted || !ok) return;
                         context.read<CartViewModel>().clear();
                         Navigator.pushReplacementNamed(context, AppRoutes.tracking, arguments: context.read<OrderViewModel>().selectedOrder!.id);
                       },

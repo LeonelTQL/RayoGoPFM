@@ -164,7 +164,7 @@ class _AddressPickerSheetState extends State<AddressPickerSheet> {
 
     if (confirmed == true) {
       final success = await vm.deleteAddress(address.id);
-      if (!mounted) return;
+      if (!context.mounted) return;
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Dirección eliminada correctamente.'), backgroundColor: EsquemaColor.success),
@@ -192,7 +192,7 @@ class _AddressPickerSheetState extends State<AddressPickerSheet> {
           longitude: _lng!,
           isDefault: true,
         );
-    if (!mounted || address == null) return;
+    if (!context.mounted || address == null) return;
     widget.onSelected(address);
     Navigator.pop(context);
   }
