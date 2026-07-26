@@ -12,7 +12,7 @@ const router = Router();
 const registerSchema = z.object({
   name: z.string().min(3, 'El nombre debe tener mínimo 3 caracteres.'),
   email: z.string().email('Correo inválido.').transform((value) => value.toLowerCase()),
-  password: z.string().min(60, 'Error de seguridad.'),
+  password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres.'),
   phone: z.string().min(7, 'Teléfono inválido.')
 });
 
@@ -36,7 +36,7 @@ const loginSchema = z.object({
 
 const changePasswordSchema = z.object({
   currentPassword: z.string().optional(),
-  newPassword: z.string().min(60, 'Error de seguridad.')
+  newPassword: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres.')
 });
 
 function publicUser(row) {
