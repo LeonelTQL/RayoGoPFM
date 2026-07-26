@@ -25,7 +25,7 @@ const googleLoginSchema = z.object({
 
 const changeRoleSchema = z.object({
   // Aceptamos cualquier cosa pero lo convertimos a String limpio
-  userId: z.any().transform((v) => String(v)),
+  userId: z.any().transform(String),
   newRole: z.enum(['cliente', 'repartidor'])
 });
 

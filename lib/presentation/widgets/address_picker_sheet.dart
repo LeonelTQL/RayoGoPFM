@@ -46,7 +46,7 @@ class _AddressPickerSheetState extends State<AddressPickerSheet> {
 
   Future<void> _captureGps() async {
     final position = await context.read<DeliveryViewModel>().getCurrentPosition();
-    if (!mounted) return;
+    if (!context.mounted) return;
     if (position == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('No se pudo obtener la ubicación GPS.')),
@@ -59,7 +59,7 @@ class _AddressPickerSheetState extends State<AddressPickerSheet> {
           longitude: position.longitude,
         );
 
-    if (!mounted) return;
+    if (!context.mounted) return;
     setState(() {
       _lat = position.latitude;
       _lng = position.longitude;
@@ -87,7 +87,7 @@ class _AddressPickerSheetState extends State<AddressPickerSheet> {
 
   Future<void> _selectPrediction(MapPlace prediction) async {
     final place = await context.read<MapsViewModel>().selectPrediction(prediction);
-    if (!mounted || place == null || !place.hasCoordinates) return;
+    if (!context.mounted || place == null || !place.hasCoordinates) return;
     setState(() {
       _lat = place.latitude;
       _lng = place.longitude;
@@ -129,7 +129,7 @@ class _AddressPickerSheetState extends State<AddressPickerSheet> {
           longitude: position.longitude,
         );
 
-    if (!mounted) return;
+    if (!context.mounted) return;
     if (place != null && place.formattedAddress != null) {
       setState(() {
         _addressLine.text = place.formattedAddress!;

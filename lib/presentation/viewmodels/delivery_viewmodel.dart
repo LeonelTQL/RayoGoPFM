@@ -30,7 +30,11 @@ class DeliveryViewModel extends ChangeNotifier {
       return null;
     }
 
-    return Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return Geolocator.getCurrentPosition(
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.high,
+      ),
+    );
   }
 
   Future<bool> sendCurrentLocation(String orderId) async {

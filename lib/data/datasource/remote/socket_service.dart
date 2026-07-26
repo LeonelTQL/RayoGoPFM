@@ -1,11 +1,11 @@
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 import '../../../core/config/app_config.dart';
 import '../../../core/services/notification_service.dart';
 import '../local/session_local_datasource.dart';
 
 class SocketService {
   final SessionLocalDatasource session;
-  IO.Socket? _socket;
+  io.Socket? _socket;
   final NotificationService _notifications = NotificationService();
 
   SocketService(this.session);
@@ -16,8 +16,8 @@ class SocketService {
     final token = await session.getToken();
     if (token == null) return;
 
-    _socket = IO.io(AppConfig.apiBaseUrl.replaceFirst('/api', ''), 
-      IO.OptionBuilder()
+    _socket = io.io(AppConfig.apiBaseUrl.replaceFirst('/api', ''), 
+      io.OptionBuilder()
         .setTransports(['websocket'])
         .setAuth({'token': token})
         .enableAutoConnect()

@@ -159,21 +159,21 @@ const routeSchema = z.object({
   travelMode: z.enum(['DRIVE', 'TWO_WHEELER', 'WALK', 'BICYCLE']).default('DRIVE'),
 });
 
+function encodeValue(value) {
+  let shifted = value < 0 ? ~(value << 1) : value << 1;
+  let output = '';
+  while (shifted >= 0x20) {
+    output += String.fromCodePoint((0x20 | (shifted & 0x1f)) + 63);
+    shifted >>= 5;
+  }
+  output += String.fromCodePoint(shifted + 63);
+  return output;
+}
+
 function encodePolyline(points) {
   let lastLat = 0;
   let lastLng = 0;
   let result = '';
-
-  function encodeValue(value) {
-    let shifted = value < 0 ? ~(value << 1) : value << 1;
-    let output = '';
-    while (shifted >= 0x20) {
-      output += String.fromCodePoint((0x20 | (shifted & 0x1f)) + 63);
-      shifted >>= 5;
-    }
-    output += String.fromCodePoint(shifted + 63);
-    return output;
-  }
 
   for (const point of points) {
     const lat = Math.round(Number(point.lat) * 1e5);

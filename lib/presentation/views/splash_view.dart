@@ -34,10 +34,10 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
     final auth = context.read<AuthViewModel>();
     await Future.delayed(const Duration(seconds: 2)); // Para que se vea el logo
     await auth.loadSession();
-    if (!mounted) return;
+    if (!context.mounted) return;
     
     final user = auth.user;
-    if (user != null && mounted) {
+    if (user != null) {
       // Inicializar sockets si hay sesión
       context.read<SocketService>().init();
     }

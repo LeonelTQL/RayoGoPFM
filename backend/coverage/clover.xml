@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1785094970811" clover="3.2.0">
-  <project timestamp="1785094970811" name="All files">
-    <metrics statements="293" coveredstatements="291" conditionals="139" coveredconditionals="112" methods="34" coveredmethods="34" elements="466" coveredelements="437" complexity="0" loc="293" ncloc="293" packages="8" files="11" classes="11"/>
+<coverage generated="1785095468577" clover="3.2.0">
+  <project timestamp="1785095468577" name="All files">
+    <metrics statements="292" coveredstatements="290" conditionals="139" coveredconditionals="112" methods="33" coveredmethods="33" elements="464" coveredelements="435" complexity="0" loc="292" ncloc="292" packages="8" files="11" classes="11"/>
     <package name="src">
       <metrics statements="20" coveredstatements="20" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="app.js" path="/home/grimroot/Desktop/8voSemestre/RayoGoPFM/backend/src/app.js">
@@ -116,9 +116,9 @@
       </file>
     </package>
     <package name="src.modules.auth">
-      <metrics statements="116" coveredstatements="114" conditionals="43" coveredconditionals="37" methods="13" coveredmethods="13"/>
+      <metrics statements="115" coveredstatements="113" conditionals="43" coveredconditionals="37" methods="12" coveredmethods="12"/>
       <file name="auth.routes.js" path="/home/grimroot/Desktop/8voSemestre/RayoGoPFM/backend/src/modules/auth/auth.routes.js">
-        <metrics statements="116" coveredstatements="114" conditionals="43" coveredconditionals="37" methods="13" coveredmethods="13"/>
+        <metrics statements="115" coveredstatements="113" conditionals="43" coveredconditionals="37" methods="12" coveredmethods="12"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -131,7 +131,6 @@
         <line num="14" count="5" type="stmt"/>
         <line num="19" count="4" type="stmt"/>
         <line num="26" count="4" type="stmt"/>
-        <line num="28" count="4" type="stmt"/>
         <line num="32" count="4" type="stmt"/>
         <line num="33" count="6" type="stmt"/>
         <line num="37" count="4" type="stmt"/>

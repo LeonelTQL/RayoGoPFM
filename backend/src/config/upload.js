@@ -1,5 +1,5 @@
-const path = require('path');
-const fs = require('fs');
+const path = require('node:path');
+const fs = require('node:fs');
 const multer = require('multer');
 
 const uploadDir = process.env.UPLOAD_DIR || 'uploads';
@@ -9,7 +9,7 @@ if (!fs.existsSync(fullPath)) {
   fs.mkdirSync(fullPath, { recursive: true });
 }
 
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, fullPath),

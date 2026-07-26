@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'test') {
     memoryDb.public.registerFunction({
       name: 'gen_random_uuid',
       returns: DataType.uuid,
-      implementation: () => require('crypto').randomUUID(),
+      implementation: () => require('node:crypto').randomUUID(),
       impure: true
     });
 
@@ -27,8 +27,8 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 async function initializeTestDb() {
-  const fs = require('fs');
-  const path = require('path');
+  const fs = require('node:fs');
+  const path = require('node:path');
   
   const migrationsDir = path.join(__dirname, '..', '..', 'database', 'migrations');
   const files = fs.readdirSync(migrationsDir)

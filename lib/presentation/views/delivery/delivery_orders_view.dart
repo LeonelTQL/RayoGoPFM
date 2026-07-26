@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../data/datasource/remote/socket_service.dart';
-import '../../../domain/entities/order.dart';
 import '../../../themes/esquema_color.dart';
 import '../../routes/app_routes.dart';
 import '../../viewmodels/auth_viewmodel.dart';
