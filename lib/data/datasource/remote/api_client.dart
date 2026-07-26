@@ -29,40 +29,59 @@ class ApiClient {
     };
   }
 
+  Future<http.Response> _send(Future<http.Response> Function() requestFn) async {
+    try {
+      return await requestFn();
+    } on SocketException {
+      throw ApiException('No hay conexión a internet o la calidad de la señal es baja.', 0);
+    } catch (e) {
+      final errStr = e.toString();
+      if (errStr.contains('SocketException') || errStr.contains('Failed host lookup') || errStr.contains('HandshakeException')) {
+        throw ApiException('No hay conexión a internet o la calidad de la señal es baja.', 0);
+      }
+      rethrow;
+    }
+  }
+
   Future<dynamic> get(String path) async {
-    final response = await http.get(Uri.parse('$baseUrl$path'), headers: await _headers());
+    final headers = await _headers();
+    final response = await _send(() => http.get(Uri.parse('$baseUrl$path'), headers: headers));
     return _handle(response);
   }
 
   Future<dynamic> post(String path, Map<String, dynamic> body) async {
-    final response = await http.post(
+    final headers = await _headers();
+    final response = await _send(() => http.post(
       Uri.parse('$baseUrl$path'),
-      headers: await _headers(),
+      headers: headers,
       body: jsonEncode(body),
-    );
+    ));
     return _handle(response);
   }
 
   Future<dynamic> put(String path, Map<String, dynamic> body) async {
-    final response = await http.put(
+    final headers = await _headers();
+    final response = await _send(() => http.put(
       Uri.parse('$baseUrl$path'),
-      headers: await _headers(),
+      headers: headers,
       body: jsonEncode(body),
-    );
+    ));
     return _handle(response);
   }
 
   Future<dynamic> patch(String path, Map<String, dynamic> body) async {
-    final response = await http.patch(
+    final headers = await _headers();
+    final response = await _send(() => http.patch(
       Uri.parse('$baseUrl$path'),
-      headers: await _headers(),
+      headers: headers,
       body: jsonEncode(body),
-    );
+    ));
     return _handle(response);
   }
 
   Future<dynamic> delete(String path) async {
-    final response = await http.delete(Uri.parse('$baseUrl$path'), headers: await _headers());
+    final headers = await _headers();
+    final response = await _send(() => http.delete(Uri.parse('$baseUrl$path'), headers: headers));
     return _handle(response);
   }
 
@@ -89,8 +108,11 @@ class ApiClient {
       file.path,
       contentType: contentType,
     ));
-    final streamed = await request.send();
-    final response = await http.Response.fromStream(streamed);
+    
+    final response = await _send(() async {
+      final streamed = await request.send();
+      return await http.Response.fromStream(streamed);
+    });
     return _handle(response);
   }
 

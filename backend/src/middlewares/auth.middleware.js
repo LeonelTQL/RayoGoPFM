@@ -12,7 +12,10 @@ function requireAuth(req, res, next) {
     req.user = jwt.verify(token, process.env.JWT_SECRET || 'dev_secret');
     return next();
   } catch (error) {
-    return res.status(401).json({ message: 'Token inválido o expirado.' });
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ message: 'Tu sesión ha caducado. Por favor, inicia sesión de nuevo.' });
+    }
+    return res.status(401).json({ message: 'Token inválido. Por favor, inicia sesión de nuevo.' });
   }
 }
 

@@ -29,7 +29,7 @@ function mapAddress(row) {
 router.get('/', requireAuth, async (req, res, next) => {
   try {
     const result = await db.query(
-      `SELECT * FROM addresses WHERE user_id = $1 ORDER BY is_default DESC, created_at DESC`,
+      `SELECT * FROM addresses WHERE user_id = $1 AND active = TRUE ORDER BY is_default DESC, created_at DESC`,
       [req.user.id]
     );
     return res.json({ addresses: result.rows.map(mapAddress) });
@@ -44,7 +44,7 @@ router.post('/', requireAuth, validate(addressSchema), async (req, res, next) =>
     const { label, addressLine, latitude, longitude, isDefault } = req.body;
     await client.query('BEGIN');
     if (isDefault) {
-      await client.query('UPDATE addresses SET is_default = FALSE WHERE user_id = $1', [req.user.id]);
+      await client.query('UPDATE addresses SET is_default = FALSE WHERE user_id = $1 AND active = TRUE', [req.user.id]);
     }
     const result = await client.query(
       `INSERT INTO addresses (user_id, label, address_line, latitude, longitude, is_default)
@@ -64,7 +64,10 @@ router.post('/', requireAuth, validate(addressSchema), async (req, res, next) =>
 
 router.delete('/:id', requireAuth, async (req, res, next) => {
   try {
-    const result = await db.query('DELETE FROM addresses WHERE id = $1 AND user_id = $2 RETURNING id', [req.params.id, req.user.id]);
+    const result = await db.query(
+      'UPDATE addresses SET active = FALSE, is_default = FALSE WHERE id = $1 AND user_id = $2 RETURNING id',
+      [req.params.id, req.user.id]
+    );
     if (result.rowCount === 0) return res.status(404).json({ message: 'Dirección no encontrada.' });
     return res.json({ message: 'Dirección eliminada.' });
   } catch (error) {

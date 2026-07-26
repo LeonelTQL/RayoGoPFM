@@ -102,12 +102,12 @@ router.post('/', requireAuth, allowRoles('cliente'), validate(createOrderSchema)
     await client.query('BEGIN');
 
     const addressResult = await client.query(
-      `SELECT id FROM addresses WHERE id = $1 AND user_id = $2`,
+      `SELECT id FROM addresses WHERE id = $1 AND user_id = $2 AND active = TRUE`,
       [deliveryAddressId, req.user.id]
     );
     if (addressResult.rowCount === 0) {
       await client.query('ROLLBACK');
-      return res.status(400).json({ message: 'La dirección no pertenece al usuario.' });
+      return res.status(400).json({ message: 'La dirección seleccionada no es válida o ha sido eliminada.' });
     }
 
     let subtotal = 0;
