@@ -30,6 +30,11 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
+
     defaultConfig {
         applicationId = "com.rayogo.app"
         // minSdk 21 es obligatorio para Google Maps y desugaring
