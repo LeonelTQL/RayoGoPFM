@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../domain/entities/delivery_location.dart';
 import '../../domain/repositories/delivery_repository.dart';
+import '../widgets/prominent_disclosure_dialog.dart';
 
 class DeliveryViewModel extends ChangeNotifier {
   final DeliveryRepository repository;
@@ -12,7 +13,7 @@ class DeliveryViewModel extends ChangeNotifier {
   bool loading = false;
   String? error;
 
-  Future<Position?> getCurrentPosition() async {
+  Future<Position?> getCurrentPosition(BuildContext context) async {
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       error = 'Activa el GPS del dispositivo.';
@@ -22,6 +23,13 @@ class DeliveryViewModel extends ChangeNotifier {
 
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
+      // Mostrar el aviso destacado antes de solicitar los permisos
+      final accepted = await ProminentDisclosureDialog.show(context);
+      if (!accepted) {
+        error = 'Permiso de ubicación denegado.';
+        notifyListeners();
+        return null;
+      }
       permission = await Geolocator.requestPermission();
     }
     if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
@@ -37,12 +45,12 @@ class DeliveryViewModel extends ChangeNotifier {
     );
   }
 
-  Future<bool> sendCurrentLocation(String orderId) async {
+  Future<bool> sendCurrentLocation(BuildContext context, String orderId) async {
     loading = true;
     error = null;
     notifyListeners();
     try {
-      final position = await getCurrentPosition();
+      final position = await getCurrentPosition(context);
       if (position == null) {
         loading = false;
         notifyListeners();

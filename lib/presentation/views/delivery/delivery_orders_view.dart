@@ -207,7 +207,7 @@ class _DeliveryOrdersViewState extends State<DeliveryOrdersView> {
                                         OutlinedButton(
                                           style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(44), tapTargetSize: MaterialTapTargetSize.shrinkWrap),
                                           onPressed: () async {
-                                            await context.read<DeliveryViewModel>().sendCurrentLocation(order.id);
+                                            await context.read<DeliveryViewModel>().sendCurrentLocation(context, order.id);
                                             if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Ubicación enviada')));
                                           },
                                           child: const Text('Enviar GPS'),
