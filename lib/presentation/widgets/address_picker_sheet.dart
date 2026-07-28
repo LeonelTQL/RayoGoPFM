@@ -45,7 +45,7 @@ class _AddressPickerSheetState extends State<AddressPickerSheet> {
   }
 
   Future<void> _captureGps() async {
-    final position = await context.read<DeliveryViewModel>().getCurrentPosition();
+    final position = await context.read<DeliveryViewModel>().getCurrentPosition(context);
     if (!context.mounted) return;
     if (position == null) {
       ScaffoldMessenger.of(context).showSnackBar(

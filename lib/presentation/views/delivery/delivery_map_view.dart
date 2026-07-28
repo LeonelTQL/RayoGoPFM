@@ -29,7 +29,7 @@ class _DeliveryMapViewState extends State<DeliveryMapView> {
   }
 
   Future<void> _loadPositionAndRoute() async {
-    final pos = await context.read<DeliveryViewModel>().getCurrentPosition();
+    final pos = await context.read<DeliveryViewModel>().getCurrentPosition(context);
     if (pos == null || !mounted) return;
     setState(() => current = LatLng(pos.latitude, pos.longitude));
 
@@ -109,7 +109,7 @@ class _DeliveryMapViewState extends State<DeliveryMapView> {
                           onPressed: delivery.loading || orderId == null
                               ? null
                               : () async {
-                                  final ok = await context.read<DeliveryViewModel>().sendCurrentLocation(orderId!);
+                                  final ok = await context.read<DeliveryViewModel>().sendCurrentLocation(context, orderId!);
                                   await _loadPositionAndRoute();
                                   if (context.mounted && ok) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Ubicación enviada al cliente')));
                                 },
