@@ -23,6 +23,7 @@ class DeliveryViewModel extends ChangeNotifier {
 
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
+      if (!context.mounted) return null;
       // Mostrar el aviso destacado antes de solicitar los permisos
       final accepted = await ProminentDisclosureDialog.show(context);
       if (!accepted) {
